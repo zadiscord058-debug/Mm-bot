@@ -2532,6 +2532,30 @@ async def nuke(ctx):
     # poruka u novom kanalu
     await new_channel.send("✅ Channel has been nuked and recreated.")
     
+@bot.command()
+@founder_or_bootstrap()
+async def dmrole(ctx, role: discord.Role, *, text=None):
+
+    if not text:
+        return await ctx.send("❌ Please provide a message.")
+
+    members = role.members
+    if len(members) == 0:
+        return await ctx.send("❌ No members in that role.")
+
+    await ctx.send(f"📨 Sending DM to {len(members)} members...")
+
+    sent = 0
+    failed = 0
+
+    for member in members:
+        try:
+            await member.send(text)
+            sent += 1
+        except:
+            failed += 1
+
+    await ctx.send(f"✅ Done! Sent: {sent}, Failed: {failed}")
 
 @bot.event
 async def on_ready():

@@ -2439,6 +2439,59 @@ async def on_message(message):
             await message.channel.send(embed=embed)
 
     await bot.process_commands(message)
+
+@bot.command()
+async def userinfo(ctx, member: discord.Member = None):
+    member = member or ctx.author
+
+    embed = discord.Embed(
+        title=f"💜 {SERVER_NAME} | User Info",
+        color=PURPLE
+    )
+
+    embed.add_field(name="User", value=member.mention, inline=False)
+    embed.add_field(name="ID", value=member.id, inline=False)
+    embed.add_field(name="Account Created", value=member.created_at.strftime("%Y-%m-%d"), inline=False)
+    embed.add_field(name="Joined Server", value=member.joined_at.strftime("%Y-%m-%d"), inline=False)
+    embed.add_field(name="Top Role", value=member.top_role.mention, inline=False)
+
+    embed.set_thumbnail(url=member.display_avatar.url)
+
+    await ctx.send(embed=embed)
+
+@bot.command()
+async def avatar(ctx, member: discord.Member = None):
+    member = member or ctx.author
+
+    embed = discord.Embed(
+        title=f"{member.name}'s Avatar",
+        color=PURPLE
+    )
+
+    embed.set_image(url=member.display_avatar.url)
+
+    await ctx.send(embed=embed)
+
+@bot.command()
+async def serverinfo(ctx):
+    guild = ctx.guild
+
+    embed = discord.Embed(
+        title=f"💜 {SERVER_NAME} | Server Info",
+        color=PURPLE
+    )
+
+    embed.add_field(name="Server Name", value=guild.name, inline=False)
+    embed.add_field(name="Members", value=guild.member_count, inline=False)
+    embed.add_field(name="Owner", value=guild.owner.mention, inline=False)
+    embed.add_field(name="Created At", value=guild.created_at.strftime("%Y-%m-%d"), inline=False)
+
+    if guild.icon:
+        embed.set_thumbnail(url=guild.icon.url)
+
+    await ctx.send(embed=embed)
+    
+
     
 
 @bot.event

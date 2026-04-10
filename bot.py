@@ -2392,12 +2392,12 @@ async def afk(ctx, *, reason="AFK"):
     }
 
     embed = discord.Embed(
-        title="🛌 AFK Status",
-        description=f"{ctx.author.mention} je sada AFK!",
-        color=discord.Color.blue()
+        title="💜 AFK Status",
+        description=f"{ctx.author.mention} is now AFK",
+        color=discord.Color.purple()
     )
-    embed.add_field(name="📌 Razlog", value=reason, inline=False)
-    embed.set_footer(text="Bićeš označen kao AFK dok ne pošalješ poruku.")
+    embed.add_field(name="📌 Reason", value=reason, inline=False)
+    embed.set_footer(text="You will be marked as AFK until you send a message.")
 
     await ctx.send(embed=embed)
     
@@ -2406,17 +2406,17 @@ async def on_message(message):
     if message.author.bot:
         return
 
-    # Skidanje AFK
+    # Remove AFK when user sends message
     if message.author.id in afk_users:
         del afk_users[message.author.id]
 
         embed = discord.Embed(
-            description=f"👋 {message.author.mention}, više nisi AFK!",
-            color=discord.Color.green()
+            description=f"💜 {message.author.mention}, you are no longer AFK!",
+            color=discord.Color.purple()
         )
         await message.channel.send(embed=embed)
 
-    # Ping AFK usera
+    # When someone pings AFK user
     for user in message.mentions:
         if user.id in afk_users:
             afk_data = afk_users[user.id]
@@ -2429,12 +2429,12 @@ async def on_message(message):
             time_str = f"{hours}h {minutes}m {seconds}s"
 
             embed = discord.Embed(
-                title="⏰ AFK Notice",
-                description=f"{user.mention} je trenutno AFK",
-                color=discord.Color.orange()
+                title="💜 AFK Notice",
+                description=f"{user.mention} is currently AFK",
+                color=discord.Color.purple()
             )
-            embed.add_field(name="📌 Razlog", value=afk_data["reason"], inline=False)
-            embed.add_field(name="⏳ Vreme", value=f"Pre {time_str}", inline=False)
+            embed.add_field(name="📌 Reason", value=afk_data["reason"], inline=False)
+            embed.add_field(name="⏳ Time", value=f"{time_str} ago", inline=False)
 
             await message.channel.send(embed=embed)
 

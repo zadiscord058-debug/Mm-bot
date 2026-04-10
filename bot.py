@@ -7,6 +7,9 @@ import json
 import io
 import re
 from datetime import datetime, timezone
+import time
+
+afk_users = {}
 
 VOUCH_FILE = "vouches.json"
 CONFIG_FILE = "config.json"
@@ -2380,7 +2383,62 @@ async def helpmm(ctx):
         embed.set_thumbnail(url=ctx.guild.icon.url)
 
     await ctx.send(embed=embed)
+
+@bot.command()
+async def afk(ctx, *, reason="AFK"):
+    afk_users[ctx.author.id] = {
+        "reason": reason,
+        "time": time.time()
+    }
+
+    embed = discord.Embed(
+        title="🛌 AFK Status",
+        description=f"{ctx.author.mention} je sada AFK!",
+        color=discord.Color.blue()
+    )
+    embed.add_field(name="📌 Razlog", value=reason, inline=False)
+    embed.set_footer(text="Bićeš označen kao AFK dok ne pošalješ poruku.")
+
+    await ctx.send(embed=embed)
     
+@bot.event
+async def on_message(message):
+    if message.author.bot:
+        return
+
+    # Skidanje AFK
+    if message.author.id in afk_users:
+        del afk_users[message.author.id]
+
+        embed = discord.Embed(
+            description=f"👋 {message.author.mention}, više nisi AFK!",
+            color=discord.Color.green()
+        )
+        await message.channel.send(embed=embed)
+
+    # Ping AFK usera
+    for user in message.mentions:
+        if user.id in afk_users:
+            afk_data = afk_users[user.id]
+            elapsed = int(time.time() - afk_data["time"])
+
+            hours = elapsed // 3600
+            minutes = (elapsed % 3600) // 60
+            seconds = elapsed % 60
+
+            time_str = f"{hours}h {minutes}m {seconds}s"
+
+            embed = discord.Embed(
+                title="⏰ AFK Notice",
+                description=f"{user.mention} je trenutno AFK",
+                color=discord.Color.orange()
+            )
+            embed.add_field(name="📌 Razlog", value=afk_data["reason"], inline=False)
+            embed.add_field(name="⏳ Vreme", value=f"Pre {time_str}", inline=False)
+
+            await message.channel.send(embed=embed)
+
+    await bot.process_commands(message)
     
 
 @bot.event

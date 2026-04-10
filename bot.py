@@ -2491,7 +2491,46 @@ async def serverinfo(ctx):
 
     await ctx.send(embed=embed)
     
+@bot.command()
+@founder_or_bootstrap()
+async def say(ctx, *, text=None):
 
+    if not text:
+        return await ctx.send("❌ Please provide a message.")
+
+    await ctx.message.delete()
+    await ctx.send(text)
+    
+@bot.command()
+@founder_or_bootstrap()
+async def nuke(ctx):
+    channel = ctx.channel
+
+    # sačuvaj info kanala
+    name = channel.name
+    category = channel.category
+    position = channel.position
+    overwrites = channel.overwrites
+
+    await ctx.send("⚠️ Nuking channel...")
+
+    # napravi novi kanal sa istim podešavanjima
+    new_channel = await channel.clone(
+        name=name,
+        reason=f"Nuked by {ctx.author}"
+    )
+
+    # vrati poziciju i category
+    await new_channel.edit(
+        category=category,
+        position=position
+    )
+
+    # obriši stari kanal
+    await channel.delete(reason=f"Nuked by {ctx.author}")
+
+    # poruka u novom kanalu
+    await new_channel.send("✅ Channel has been nuked and recreated.")
     
 
 @bot.event

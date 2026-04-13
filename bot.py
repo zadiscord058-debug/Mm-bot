@@ -13,8 +13,8 @@ afk_users = {}
 
 VOUCH_FILE = "vouches.json"
 CONFIG_FILE = "config.json"
-PURPLE = discord.Color.purple()
-SERVER_NAME = "Eneba"
+PURPLE = discord.Color.dark_blue()
+SERVER_NAME = "RoTrades"
 LOG_CHANNEL_NAME = "mod-logs"
 COOLDOWN = 300
 
@@ -357,7 +357,7 @@ async def send_set_success(ctx, title: str, key: str, value: int, kind: str):
     set_cfg(key, value)
 
     embed = discord.Embed(
-        title=f"💜 {SERVER_NAME} | Setting Updated",
+        title=f"💙 {SERVER_NAME} | Setting Updated",
         description=(
             f"**{title}** has been updated successfully.\n\n"
             f"**New Value:** {format_target(ctx.guild, value, kind)}\n"
@@ -391,7 +391,7 @@ class TicketButtons(discord.ui.View):
             return await interaction.response.send_message(error, ephemeral=True)
 
         claimed_embed = discord.Embed(
-            title=f"💜 {SERVER_NAME} | Ticket Claimed",
+            title=f"💙 {SERVER_NAME} | Ticket Claimed",
             description=(
                 "# Ticket Claimed\n"
                 f"This ticket has been claimed by {interaction.user.mention}.\n\n"
@@ -433,7 +433,7 @@ class TicketButtons(discord.ui.View):
             return await interaction.response.send_message(error, ephemeral=True)
 
         embed = discord.Embed(
-            title=f"💜 {SERVER_NAME} | Ticket Unclaimed",
+            title=f"💙 {SERVER_NAME} | Ticket Unclaimed",
             description=(
                 "# 🔓 Ticket Unclaimed\n\n"
                 f"{interaction.user.mention} has unclaimed this ticket.\n\n"
@@ -490,7 +490,7 @@ class TicketButtons(discord.ui.View):
         creator = interaction.guild.get_member(data.get("creator_id")) if data.get("creator_id") else None
 
         close_embed = discord.Embed(
-            title=f"💜 {SERVER_NAME} | Ticket Closed",
+            title=f"💙 {SERVER_NAME} | Ticket Closed",
             description=(
                 f"**Channel:** {interaction.channel.name}\n"
                 f"**Closed by:** {interaction.user.mention}\n"
@@ -542,7 +542,7 @@ class CustomFeeModal(discord.ui.Modal, title="Custom Fee Split"):
             return
 
         embed = discord.Embed(
-            title=f"💜 {SERVER_NAME} | Fee Agreement – {p1}/{p2} Split",
+            title=f"💙 {SERVER_NAME} | Fee Agreement – {p1}/{p2} Split",
             description=(
                 "# Middleman Fee Agreement\n\n"
                 "Both traders have agreed to split the middleman fee.\n\n"
@@ -565,7 +565,7 @@ class FeeView(discord.ui.View):
     @discord.ui.button(label="50% / 50%", style=discord.ButtonStyle.primary, custom_id="fee_split_50_50")
     async def split_fee(self, interaction: discord.Interaction, button: discord.ui.Button):
         embed = discord.Embed(
-            title=f"💜 {SERVER_NAME} | Fee Agreement – 50/50 Split",
+            title=f"💙 {SERVER_NAME} | Fee Agreement – 50/50 Split",
             description=(
                 "# Middleman Fee Agreement\n\n"
                 "Both traders have agreed to split the middleman fee equally.\n\n"
@@ -582,7 +582,7 @@ class FeeView(discord.ui.View):
     @discord.ui.button(label="100% One User Pays", style=discord.ButtonStyle.red, custom_id="fee_full_payment")
     async def full_fee(self, interaction: discord.Interaction, button: discord.ui.Button):
         embed = discord.Embed(
-            title=f"💜 {SERVER_NAME} | Fee Agreement – Full Payment",
+            title=f"💙 {SERVER_NAME} | Fee Agreement – Full Payment",
             description=(
                 "# Middleman Fee Agreement\n\n"
                 f"{interaction.user.mention} has agreed to cover the full middleman fee.\n\n"
@@ -625,7 +625,7 @@ class VerifyButton(discord.ui.View):
         await interaction.user.add_roles(role)
 
         embed = discord.Embed(
-            title=f"💜 {SERVER_NAME} | Verification Complete",
+            title=f"💙 {SERVER_NAME} | Verification Complete",
             description=(
                 f"**{interaction.user.mention} is now a** **Verified Trader**.\n\n"
                 "**You now have access to the server.**"
@@ -726,7 +726,7 @@ async def setverifiedrole(ctx, role: discord.Role):
 @founder_or_bootstrap()
 async def setcheck(ctx):
     embed = discord.Embed(
-        title=f"💜 {SERVER_NAME} | Configuration Check",
+        title=f"💙 {SERVER_NAME} | Configuration Check",
         description="Here is the current setup status for the bot.",
         color=PURPLE
     )
@@ -754,7 +754,7 @@ async def setcheck(ctx):
 @founder_or_bootstrap()
 async def adminhelp(ctx):
     embed = discord.Embed(
-        title=f"💜 {SERVER_NAME} | Admin Help Menu",
+        title=f"💙 {SERVER_NAME} | Admin Help Menu",
         description=(
             "# Admin Commands\n\n"
             "Below are the configuration and management commands for the bot."
@@ -821,7 +821,7 @@ async def add(ctx, member: discord.Member):
         data["other_user_id"] = member.id
 
     embed = discord.Embed(
-        title=f"💜 {SERVER_NAME} | User Added",
+        title=f"💙 {SERVER_NAME} | User Added",
         description=(
             "# ✅ User Successfully Added\n\n"
             f"{member.mention} has been added to the ticket and can now participate in the trade."
@@ -855,7 +855,7 @@ async def remove(ctx, member: discord.Member):
     await ctx.channel.set_permissions(member, overwrite=None)
 
     embed = discord.Embed(
-        title=f"💜 {SERVER_NAME} | User Removed",
+        title=f"💙 {SERVER_NAME} | User Removed",
         description=(
             "# ❌ User Removed\n\n"
             f"{member.mention} has been removed from the ticket."
@@ -881,7 +881,7 @@ async def claim(ctx):
         return await ctx.send(error)
 
     embed = discord.Embed(
-        title=f"💜 {SERVER_NAME} | Ticket Claimed",
+        title=f"💙 {SERVER_NAME} | Ticket Claimed",
         description=(
             "# Ticket Claimed\n"
             f"This ticket has been claimed by {ctx.author.mention}.\n\n"
@@ -908,7 +908,7 @@ async def vouch(ctx, member: discord.Member):
     save_vouches(vouches_data)
 
     embed = discord.Embed(
-        title=f"💜 {SERVER_NAME} | New Vouch",
+        title=f"💙 {SERVER_NAME} | New Vouch",
         description=(
             "# ⭐ New Vouch\n\n"
             f"{ctx.author.mention} vouched for {member.mention}.\n\n"
@@ -933,7 +933,7 @@ async def vouches(ctx, member: discord.Member):
     total = vouches_data.get(user_id, 0)
 
     embed = discord.Embed(
-        title=f"💜 {SERVER_NAME} | Vouch Profile",
+        title=f"💙 {SERVER_NAME} | Vouch Profile",
         description=(
             "# ⭐ User Vouch Information\n\n"
             f"**User:** {member.mention}\n"
@@ -968,7 +968,7 @@ async def unclaim(ctx):
         return await ctx.send(error)
 
     embed = discord.Embed(
-        title=f"💜 {SERVER_NAME} | Ticket Unclaimed",
+        title=f"💙 {SERVER_NAME} | Ticket Unclaimed",
         description=(
             "# 🔓 Ticket Unclaimed\n\n"
             f"{ctx.author.mention} has unclaimed this ticket.\n\n"
@@ -997,7 +997,7 @@ async def close(ctx):
     other_user = ctx.guild.get_member(data.get("other_user_id")) if data.get("other_user_id") else None
 
     close_embed = discord.Embed(
-        title=f"💜 {SERVER_NAME} | Ticket Closed",
+        title=f"💙 {SERVER_NAME} | Ticket Closed",
         description=(
             f"**Channel:** {ctx.channel.name}\n"
             f"**Closed by:** {ctx.author.mention}\n"
@@ -1034,7 +1034,7 @@ async def addvouch(ctx, member: discord.Member, amount: int):
     save_vouches(vouches_data)
 
     embed = discord.Embed(
-        title=f"💜 {SERVER_NAME} | Vouches Added",
+        title=f"💙 {SERVER_NAME} | Vouches Added",
         description=(
             "# ✅ Vouches Added\n\n"
             f"**User:** {member.mention}\n"
@@ -1067,7 +1067,7 @@ async def removevouch(ctx, member: discord.Member, amount: int):
     save_vouches(vouches_data)
 
     embed = discord.Embed(
-        title=f"💜 {SERVER_NAME} | Vouches Removed",
+        title=f"💙 {SERVER_NAME} | Vouches Removed",
         description=(
             "# ❌ Vouches Removed\n\n"
             f"**User:** {member.mention}\n"
@@ -1101,7 +1101,7 @@ async def topvouches(ctx):
         lines.append(f"**{index}.** {name} — **{count}** vouches")
 
     embed = discord.Embed(
-        title=f"💜 {SERVER_NAME} | Top Vouches",
+        title=f"💙 {SERVER_NAME} | Top Vouches",
         description="# 🏆 Top Trusted Members\n\n" + "\n".join(lines),
         color=PURPLE
     )
@@ -1121,7 +1121,7 @@ async def purge(ctx, amount: int):
     await ctx.channel.purge(limit=amount + 1)
 
     embed = discord.Embed(
-        title=f"💜 {SERVER_NAME} | Messages Purged",
+        title=f"💙 {SERVER_NAME} | Messages Purged",
         description=(
             f"**Deleted:** {amount} messages\n"
             f"**Channel:** {ctx.channel.mention}\n"
@@ -1136,7 +1136,7 @@ async def purge(ctx, amount: int):
     log = await get_log_channel(ctx.guild)
     if log:
         await log.send(embed=discord.Embed(
-            title=f"💜 {SERVER_NAME} | Purge Log",
+            title=f" {SERVER_NAME} | Purge Log",
             description=(
                 f"**Moderator:** {ctx.author.mention}\n"
                 f"**Messages Deleted:** {amount}\n"
@@ -1166,7 +1166,7 @@ async def warn(ctx, member: discord.Member, *, reason="No reason"):
     })
 
     embed = discord.Embed(
-        title=f"💜 {SERVER_NAME} | User Warned",
+        title=f" {SERVER_NAME} | User Warned",
         description=(
             f"**User:** {member.mention}\n"
             f"**User ID:** {member.id}\n"
@@ -1202,7 +1202,7 @@ async def warns(ctx, member: discord.Member):
             description += f"**{i}.** {w['time']} | {w['mod']} → {w['reason']}\n"
 
     embed = discord.Embed(
-        title=f"💜 {SERVER_NAME} | Warn List",
+        title=f" {SERVER_NAME} | Warn List",
         description=f"**User:** {member.mention}\n\n{description}",
         color=PURPLE
     )
@@ -1221,7 +1221,7 @@ async def unwarn(ctx, member: discord.Member):
     warn_data.pop(member.id, None)
 
     embed = discord.Embed(
-        title=f"💜 {SERVER_NAME} | Warn Removed",
+        title=f" {SERVER_NAME} | Warn Removed",
         description=f"**User:** {member.mention}",
         color=PURPLE
     )
@@ -1237,7 +1237,7 @@ async def unwarn(ctx, member: discord.Member):
 @founder_or_bootstrap()
 async def about(ctx):
     embed = discord.Embed(
-        title=f"💜 {SERVER_NAME} | About Server",
+        title=f" {SERVER_NAME} | About Server",
         description=f"""
 Welcome to **{SERVER_NAME}** — a place where traders meet, exchange and grow together.
 
@@ -1267,7 +1267,7 @@ Always follow the **server rules**, respect other members and enjoy trading.
 @founder_or_bootstrap()
 async def rules(ctx):
     embed = discord.Embed(
-        title=f"💜 {SERVER_NAME} | Server Rules",
+        title=f" {SERVER_NAME} | Server Rules",
         description=f"Welcome to **{SERVER_NAME}**! To keep our community safe and fun, please follow these rules:",
         color=PURPLE
     )
@@ -1316,7 +1316,7 @@ async def rules(ctx):
 @founder_or_bootstrap()
 async def mmtos(ctx):
     embed = discord.Embed(
-        title=f"💜 {SERVER_NAME} | Middleman Terms of Service",
+        title=f" {SERVER_NAME} | Middleman Terms of Service",
         description=f"Welcome to **{SERVER_NAME} MM Services**! To ensure **safe and fair trades**, please read the rules below carefully.",
         color=PURPLE
     )
@@ -1359,8 +1359,8 @@ async def mmtos(ctx):
 @founder_or_bootstrap()
 async def value(ctx):
     embed = discord.Embed(
-        title=f"💜 {SERVER_NAME} | Official Value List",
-        description="Here are the official value lists for some popular Roblox games 💜",
+        title=f" {SERVER_NAME} | Official Value List",
+        description="Here are the official value lists for some popular Roblox games ",
         color=PURPLE
     )
 
@@ -1402,7 +1402,7 @@ async def value(ctx):
 @founder_or_bootstrap()
 async def marketrules(ctx):
     embed = discord.Embed(
-        title=f"💜 {SERVER_NAME} | Marketplace Rules",
+        title=f" {SERVER_NAME} | Marketplace Rules",
         description=f"Welcome to the **{SERVER_NAME} Marketplace**! To ensure a **safe and fair trading environment**, please follow these rules carefully.",
         color=PURPLE
     )
@@ -1445,7 +1445,7 @@ async def marketrules(ctx):
 @founder_or_bootstrap()
 async def staffapp(ctx):
     embed = discord.Embed(
-        title=f"💜 {SERVER_NAME} | Staff Application",
+        title=f" {SERVER_NAME} | Staff Application",
         description=f"""
 Interested in becoming a **staff member** at **{SERVER_NAME}**?  
 
@@ -1460,7 +1460,7 @@ If you think you have what it takes, please **DM me directly** to submit your ap
 • **Any relevant skills**  
 
 Applications will be **reviewed carefully**, and selected candidates will be contacted for further steps.  
-We value honesty, responsibility, and enthusiasm — make sure your application **reflects your dedication**. 💜  
+We value honesty, responsibility, and enthusiasm — make sure your application **reflects your dedication**.   
 
 Thank you for your interest in helping make **{SERVER_NAME}** a better and safer community!
 """,
@@ -1475,7 +1475,7 @@ Thank you for your interest in helping make **{SERVER_NAME}** a better and safer
 @founder_or_bootstrap()
 async def tos(ctx):
     embed = discord.Embed(
-        title=f"💜 {SERVER_NAME} | Server TOS",
+        title=f" {SERVER_NAME} | Server TOS",
         description=(
             f"# {SERVER_NAME.upper()}\n"
             "## Server Terms of Service\n\n"
@@ -1507,7 +1507,7 @@ async def tos(ctx):
 @founder_or_bootstrap()
 async def support(ctx):
     embed = discord.Embed(
-        title=f"💜 {SERVER_NAME} | Support",
+        title=f" {SERVER_NAME} | Support",
         description=(
             f"# {SERVER_NAME.upper()} SUPPORT\n"
             "## Need Help?\n\n"
@@ -1522,7 +1522,7 @@ async def support(ctx):
             "Please be **patient and respectful** when contacting support.\n"
             "Our staff will respond **as soon as possible**.\n\n"
             "### Thank You\n"
-            f"Thank you for using **{SERVER_NAME} Support** 💜"
+            f"Thank you for using **{SERVER_NAME} Support** "
         ),
         color=PURPLE
     )
@@ -1547,7 +1547,7 @@ async def kick(ctx, member: discord.Member, *, reason="No reason provided"):
     action_time = discord.utils.utcnow()
 
     embed = discord.Embed(
-        title=f"💜 {SERVER_NAME} | User Kicked",
+        title=f" {SERVER_NAME} | User Kicked",
         description=(
             "# 👢 Kick Executed\n\n"
             f"**User:** {member.mention}\n"
@@ -1588,7 +1588,7 @@ async def ban(ctx, member: discord.Member, *, reason="No reason provided"):
     action_time = discord.utils.utcnow()
 
     embed = discord.Embed(
-        title=f"💜 {SERVER_NAME} | User Banned",
+        title=f" {SERVER_NAME} | User Banned",
         description=(
             "# 🔨 Ban Executed\n\n"
             f"**User:** {member.mention}\n"
@@ -1631,7 +1631,7 @@ async def unban(ctx, user_id: int, *, reason="No reason provided"):
     action_time = discord.utils.utcnow()
 
     embed = discord.Embed(
-        title=f"💜 {SERVER_NAME} | User Unbanned",
+        title=f" {SERVER_NAME} | User Unbanned",
         description=(
             "# ✅ Unban Executed\n\n"
             f"**User:** {user.mention}\n"
@@ -1687,7 +1687,7 @@ async def on_member_join(member):
         pass
 
     welcome_embed = discord.Embed(
-        title=f"💜 {SERVER_NAME} | Welcome",
+        title=f" {SERVER_NAME} | Welcome",
         description=(
             "━━━━━━━━━━━━━━━━━━━━━━\n"
             f"**Welcome {member.mention}!**\n\n"
@@ -1729,7 +1729,7 @@ async def on_member_join(member):
 @founder_or_bootstrap()
 async def verify(ctx):
     embed = discord.Embed(
-        title=f"💜 {SERVER_NAME} | Verification",
+        title=f" {SERVER_NAME} | Verification",
         description=(
             "━━━━━━━━━━━━━━━━━━━━━━\n"
             "**Click the button below to verify.**\n\n"
@@ -1745,10 +1745,10 @@ async def verify(ctx):
 @is_mm()
 async def howmmworks(ctx):
     embed = discord.Embed(
-        title="💜 Eneba | How a Middleman Works",
+        title=" RoTrade | How a Middleman Works",
         description=(
-            "🔐 **How Eneba's Middleman Service Works**\n\n"
-            "Welcome to **Eneba's Middleman Service**, where your trades are handled with "
+            "🔐 **How RoTrade's Middleman Service Works**\n\n"
+            "Welcome to **RoTrade's Middleman Service**, where your trades are handled with "
             "**maximum security, transparency, and professionalism**.\n\n"
 
             "━━━━━━━━━━━━━━━━━━━━━━\n"
@@ -1773,13 +1773,13 @@ async def howmmworks(ctx):
             "7️⃣ Once both sides confirm, the MM safely releases the assets.\n\n"
 
             "━━━━━━━━━━━━━━━━━━━━━━\n"
-            "🌟 **Eneba Middleman Service Guarantee**\n"
+            "🌟 **RoTrades Middleman Service Guarantee**\n"
             "We ensure a **secure, neutral, and protected environment** for every trade."
         ),
         color=PURPLE
     )
 
-    embed.set_footer(text="Eneba | Official Middleman System")
+    embed.set_footer(text="RoTrade | Official Middleman System")
     await ctx.send(embed=embed)
     
 @bot.command()
@@ -1787,7 +1787,7 @@ async def howmmworks(ctx):
 async def fee(ctx):
 
     embed = discord.Embed(
-        title="💜 Eneba | Middleman Service Fee Confirmation",
+        title="RoTrade | Middleman Service Fee Confirmation",
         description=(
             "To ensure transparency and fairness, all middleman transactions may include a service fee.\n\n"
 
@@ -1802,7 +1802,7 @@ async def fee(ctx):
         color=PURPLE
     )
 
-    embed.set_footer(text="Eneba | Fee System")
+    embed.set_footer(text="RoTrade | Fee System")
 
     await ctx.send(embed=embed, view=FeeView())
     
@@ -1813,12 +1813,12 @@ async def fee(ctx):
 async def policy(ctx):
 
     embed = discord.Embed(
-        title="💜 Eneba | Compensation Policy",
+        title="RoTrade | Compensation Policy",
         description=(
             "## Middleman Compensation Policy\n\n"
 
             "If a mistake happens during a trade handled by our MM team, "
-            "Eneba will review the case and provide compensation if needed.\n\n"
+            "RoTrade will review the case and provide compensation if needed.\n\n"
 
             "### Covered Situations\n"
             "• Middleman mistake\n"
@@ -1835,7 +1835,7 @@ async def policy(ctx):
         color=PURPLE
     )
 
-    embed.set_footer(text="Eneba | Policy System")
+    embed.set_footer(text="RoTrade | Policy System")
 
     await ctx.send(embed=embed)
     
@@ -1847,11 +1847,11 @@ async def confirm(ctx, user1: discord.Member, user2: discord.Member):
         return await ctx.send("❌ You cannot confirm a trade with the same user.")
 
     embed = discord.Embed(
-        title="💜 Eneba | Trade Confirmation",
+        title="RoTrade | Trade Confirmation",
         description=(
             "# Official Trade Confirmation\n\n"
             "This trade has been **officially confirmed** under the supervision "
-            "of the **Eneba Middleman Team**.\n\n"
+            "of the **RoTrade Middleman Team**.\n\n"
 
             "Both parties have agreed to the full trade terms and conditions.\n\n"
 
@@ -1878,7 +1878,7 @@ async def confirm(ctx, user1: discord.Member, user2: discord.Member):
         inline=False
     )
 
-    embed.set_footer(text="Eneba | Secure Middleman System")
+    embed.set_footer(text="RoTrade | Secure Middleman System")
 
     await ctx.send(embed=embed)
 
@@ -1887,7 +1887,7 @@ async def confirm(ctx, user1: discord.Member, user2: discord.Member):
 async def help(ctx):
 
     embed = discord.Embed(
-        title=f"💜 {ctx.guild.name} | Command Guide",
+        title=f" {ctx.guild.name} | Command Guide",
         description="Below is the **complete list of commands** available in the server.",
         color=PURPLE
     )
@@ -2013,7 +2013,7 @@ async def help(ctx):
         inline=False
     )
 
-    embed.set_footer(text="Eneba | Command System")
+    embed.set_footer(text="RoTrade | Command System")
 
     if ctx.guild.icon:
         embed.set_thumbnail(url=ctx.guild.icon.url)
@@ -2135,7 +2135,7 @@ class MMModal(discord.ui.Modal):
         other_user_text = other_member.mention if other_member else self.other_user.value
 
         ticket_embed = discord.Embed(
-            title="💜 Eneba | New Middleman Ticket",
+            title="RoTrade | New Middleman Ticket",
             description=(
                 "# New Ticket Created\n"
                 "A new **middleman request** has been submitted.\n\n"
@@ -2151,7 +2151,7 @@ class MMModal(discord.ui.Modal):
             color=PURPLE
         )
 
-        ticket_embed.set_footer(text="Eneba | Ticket System")
+        ticket_embed.set_footer(text="RoTrade | Ticket System")
 
         mention_parts = [interaction.user.mention]
 
@@ -2177,11 +2177,11 @@ class MMModal(discord.ui.Modal):
 async def panel(ctx):
 
     embed = discord.Embed(
-        title="💜 Eneba  | Middleman Service",
+        title=" RoTrade  | Middleman Service",
         description=(
             "Welcome to our middleman service centre.\n\n"
 
-            "At **Eneba **, we provide a safe and secure way to exchange your goods, "
+            "At **RoTrade **, we provide a safe and secure way to exchange your goods, "
             "whether it's in-game items, crypto or digital assets.\n\n"
 
             "Our trusted middleman team ensures that both parties receive exactly what they agreed upon "
@@ -2198,12 +2198,12 @@ async def panel(ctx):
             "• Click the dropdown below.\n"
             "• Wait for a staff member.\n\n"
 
-            "**Eneba • Trusted Middleman Service**"
+            "**RoTrade • Trusted Middleman Service**"
         ),
         color=PURPLE
     )
 
-    embed.set_footer(text="Eneba | Official Middleman System")
+    embed.set_footer(text="RoTrade | Official Middleman System")
 
     await ctx.send(embed=embed, view=MMView())
 
@@ -2235,7 +2235,7 @@ class MercyView(discord.ui.View):
             await self.target.add_roles(role)
 
         embed = discord.Embed(
-            title="💜 Mercy Accepted",
+            title=" Mercy Accepted",
             description=(
                 f"**{self.target.mention} has accepted the offer.**\n\n"
                 "**Next Steps:**\n"
@@ -2267,7 +2267,7 @@ class MercyView(discord.ui.View):
     @discord.ui.button(label="Decline", style=discord.ButtonStyle.red )
     async def decline(self, interaction: discord.Interaction, button: discord.ui.Button):
         embed = discord.Embed(
-            title="💜 Mercy Declined",
+            title=" Mercy Declined",
             description=(
                 f"**{self.target.mention} has declined the offer.**\n\n"
                 "**What happens now?**\n"
@@ -2330,7 +2330,7 @@ async def mercy(ctx, member: discord.Member):
 async def helpmm(ctx):
 
     embed = discord.Embed(
-        title=f"💜 {ctx.guild.name} | Middleman Command Guide",
+        title=f" {ctx.guild.name} | Middleman Command Guide",
         description="Below are the **commands available for the Middleman Team**.",
         color=PURPLE
     )
@@ -2392,7 +2392,7 @@ async def afk(ctx, *, reason="AFK"):
     }
 
     embed = discord.Embed(
-        title="💜 AFK Status",
+        title="💙 AFK Status",
         description=f"{ctx.author.mention} is now AFK",
         color=discord.Color.purple()
     )
@@ -2411,7 +2411,7 @@ async def on_message(message):
         del afk_users[message.author.id]
 
         embed = discord.Embed(
-            description=f"💜 {message.author.mention}, you are no longer AFK!",
+            description=f"💙 {message.author.mention}, you are no longer AFK!",
             color=discord.Color.purple()
         )
         await message.channel.send(embed=embed)
@@ -2429,7 +2429,7 @@ async def on_message(message):
             time_str = f"{hours}h {minutes}m {seconds}s"
 
             embed = discord.Embed(
-                title="💜 AFK Notice",
+                title="💙 AFK Notice",
                 description=f"{user.mention} is currently AFK",
                 color=discord.Color.purple()
             )
@@ -2445,7 +2445,7 @@ async def userinfo(ctx, member: discord.Member = None):
     member = member or ctx.author
 
     embed = discord.Embed(
-        title=f"💜 {SERVER_NAME} | User Info",
+        title=f"💙 {SERVER_NAME} | User Info",
         color=PURPLE
     )
 
@@ -2477,7 +2477,7 @@ async def serverinfo(ctx):
     guild = ctx.guild
 
     embed = discord.Embed(
-        title=f"💜 {SERVER_NAME} | Server Info",
+        title=f"💙 {SERVER_NAME} | Server Info",
         color=PURPLE
     )
 
